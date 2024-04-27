@@ -3,8 +3,12 @@ package com.example.navigationdrawer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -15,8 +19,9 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.DismissibleDrawerSheet
-import androidx.compose.material3.DismissibleNavigationDrawer
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,13 +38,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -88,7 +96,7 @@ fun NavigationDrawerDemo(items: List<NavigationItem> = listOf()) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var selectedItemIndex by rememberSaveable {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
     ModalNavigationDrawer(
@@ -158,8 +166,68 @@ fun NavigationDrawerDemo(items: List<NavigationItem> = listOf()) {
             }
         ) { paddingValues ->
 
+            Box(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .background(Color.Cyan)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+
+                LearnCostraintLayout()
+            }
+
         }
 
+    }
+}
+
+@Composable
+fun LearnCostraintLayout() {
+
+    ConstraintLayout {
+
+        val (redButton, greenButton, blueButton, blackButton) = createRefs()
+
+        Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Red),
+            modifier = Modifier.constrainAs(redButton) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                width = Dimension.matchParent
+
+            }) {
+            Text(text = "Red Button")
+        }
+
+        Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Green),
+            modifier = Modifier.constrainAs(greenButton) {
+                top.linkTo(redButton.bottom)
+                start.linkTo(parent.start)
+
+               // end.linkTo(blueButton.start)
+
+            }) {
+            Text(text = "Green Button")
+        }
+
+        Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Blue),
+            modifier = Modifier.constrainAs(blueButton) {
+                top.linkTo(redButton.bottom)
+               // start.linkTo(greenButton.end)
+                end.linkTo(parent.end)
+
+            }) {
+            Text(text = "Blue Button")
+        }
+
+        Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Black),
+            modifier = Modifier.constrainAs(blackButton) {
+
+                top.linkTo(blueButton.bottom)
+            }) {
+            Text(text = "Black Button")
+        }
     }
 }
 
