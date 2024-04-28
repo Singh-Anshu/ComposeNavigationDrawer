@@ -1,7 +1,7 @@
-# Zomato DashBaord And Naviagtion Drawer in Compose
+# Zomato DashBoard And Navigation Drawer in Compose
 
 ## ScreenShot
 
-| OutPut 1      |
-|------------|
-![zomato_dashboard](https://github.com/Singh-Anshu/Zomato-DashBaord-And-ComposeNavigationDrawer/assets/83568913/c91ba19e-eaa3-4514-b237-7da6ae0d5ba7)
+<div align="center">
+    <img src="https://github.com/Singh-Anshu/Zomato-DashBaord-And-ComposeNavigationDrawer/blob/master/app/src/main/res/drawable/zomato_dashboard.jpeg" width="400px"</img> 
+</div>
