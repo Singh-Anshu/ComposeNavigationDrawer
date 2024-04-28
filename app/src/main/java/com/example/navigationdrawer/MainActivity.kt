@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,14 +28,12 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -62,17 +61,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -111,7 +110,8 @@ class MainActivity : ComponentActivity() {
 
             ) {
 //                NavigationDrawerDemo(items)
-                DashBoard()
+//                Zomato DshBoard
+                ZomatoDashBoard()
 
             }
 
@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun DashBoard() {
+fun ZomatoDashBoard() {
 
     Column(
         modifier = Modifier
@@ -223,14 +223,19 @@ fun DashBoard() {
             val (bannerImage, flatText, freeText, couponText) = createRefs()
 
             Image(
-                modifier = Modifier.padding(start = 50.dp).constrainAs(bannerImage) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                    height = Dimension.value(130.dp)
-                },
+                painter = painterResource(R.drawable.indina_thali),
                 contentDescription = "Banner Image",
-                painter = painterResource(R.drawable.frame_8)
+                modifier = Modifier
+                    .background(color = MyRed)
+                    .clip(CircleShape)
+                    .padding(end = 8.dp)// clip to the circle shape
+                    .constrainAs(bannerImage) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                        height = Dimension.value(100.dp)
+                    },
+
             )
             Text(text = "FLAT 50% OFF",
                 fontSize = 28.sp,
@@ -262,6 +267,283 @@ fun DashBoard() {
                 })
 
         }
+
+        Text(
+            text = stringResource(R.string.categories),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            modifier = Modifier.padding(top = sixteenDpPadding)
+        )
+
+        // 1st Row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sixteenDpPadding, end = sixteenDpPadding, top = sixteenDpPadding)
+
+        ) {
+
+            // 1st
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.hamburger_french),
+                    contentDescription = "Burger",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Burger",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 2nd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.pizza),
+                    contentDescription = "Pizza",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Pizza",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 3rd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.cake),
+                    contentDescription = "Cake",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Cake",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+        }
+
+        // 2nd Row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sixteenDpPadding, end = sixteenDpPadding, top = sixteenDpPadding)
+
+        ) {
+
+            // 1st
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.biryani),
+                    contentDescription = "Biryani",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Biryani",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 2nd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.momos),
+                    contentDescription = "Momos",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Momos",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 3rd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.icecream),
+                    contentDescription = "Ice-Cream",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Ice-Cream",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+        }
+
+        // 3rd Row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sixteenDpPadding, end = sixteenDpPadding, top = sixteenDpPadding)
+
+        ) {
+
+            // 1st
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.paneer),
+                    contentDescription = "Panner",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Panner",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 2nd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.pasta),
+                    contentDescription = "Pasta",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Pasta",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+
+            // 3rd
+            Column(
+                modifier = Modifier.weight(0.25f).padding(horizontal = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Image(
+                    painter = painterResource(R.drawable.khichdi),
+                    contentDescription = "Khichdi",
+                    modifier = Modifier
+                        .height(100.dp)
+                        .shadow(3.dp, RoundedCornerShape(10.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                        .padding(sixteenDpPadding)
+                )
+
+                Text(
+                    text = "Khichdi",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.Black
+                )
+
+            }
+        }
+
+
     }
 }
 
@@ -269,6 +551,7 @@ fun DashBoard() {
 fun SearchBar(onSearch: (String) -> Unit) {
     var searchText by remember { mutableStateOf("") }
     val isTextEmpty = searchText.isEmpty()
+
 
     TextField(
         value = searchText,
@@ -279,23 +562,25 @@ fun SearchBar(onSearch: (String) -> Unit) {
         singleLine = true,
         maxLines = 1,
         placeholder = { Text("Search...") },
+        leadingIcon = {
+            Image(
+                imageVector = Icons.Filled.Search, contentDescription = "Search Icon",
+                modifier = Modifier.size(38.dp).padding(start = 8.dp)
+            )
+        },
+
         trailingIcon = {
             if (!isTextEmpty) {
                 Icon(
                     imageVector = Icons.Filled.Close,
                     contentDescription = "Clear Text",
                     modifier = Modifier
-                        .size(38.dp)
+                        .size(32.dp)
                         .padding(end = 8.dp)
                         .clickable {
                             searchText = ""
                             onSearch("")
                         }
-                )
-            } else {
-                Image(
-                    imageVector = Icons.Filled.Search, contentDescription = "Search Icon",
-                    modifier = Modifier.size(38.dp).padding(end = 8.dp)
                 )
             }
         },
